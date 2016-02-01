@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	//"board.go"
 )
 
 func main() {
@@ -11,16 +9,17 @@ func main() {
 
 	b := NewBoard()
 
-	b.ActivePieces(Red)
+	rp := NewPlayer(Red, b)
+	bp := NewPlayer(Black, b)
+
 	b.Dump()
 
+	rp.MakeMove(b)
+	bp.MakeMove(b)
+
 	/*
-		rp := NewAutoPlayer(Red)
-		bp := NewAutoPlayer(Black)
 		for b.IsGameOver() {
-			rp.MakeMove(b)
 			b.Dump()
-			bp.MakeMove(b)
 			b.Dump()
 		}
 	*/

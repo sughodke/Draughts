@@ -5,9 +5,7 @@ import (
 	"unicode"
 )
 
-type Piece rune
-
-func KingOf(p Piece) Piece {
+func KingOf(p rune) rune {
 	return unicode.ToUpper(p)
 }
 
@@ -19,7 +17,7 @@ const (
 	BlackKing = 'B'
 )
 
-type Board [8][8]Piece
+type Board [8][8]rune
 
 func NewBoard() *Board {
 	b := new(Board)
@@ -30,13 +28,6 @@ func NewBoard() *Board {
 	for row := 0; row < len(b); row++ {
 		for col := 0; col < len(b[0]); col++ {
 			b[row][col] = Vacant
-		}
-	}
-
-	for row := 0; row < 3; row++ {
-		for i := row % 2; i < 8; i += 2 {
-			b[row][(i+1)%8] = Red
-			b[7-row][i] = Black
 		}
 	}
 
@@ -51,11 +42,14 @@ func (b *Board) Dump() {
 		fmt.Println("|")
 	}
 	fmt.Println("")
+	fmt.Println("Red Pieces:", b.ActivePieces(Red))
+	fmt.Println("Black Pieces:", b.ActivePieces(Black))
+	fmt.Println("")
 }
 
-func (b *Board) ActivePieces(color Piece) int {
+func (b *Board) ActivePieces(color rune) int {
 	activePieces := 0
-	searchMap := map[Piece]bool{
+	searchMap := map[rune]bool{
 		color:         true,
 		KingOf(color): true,
 	}
